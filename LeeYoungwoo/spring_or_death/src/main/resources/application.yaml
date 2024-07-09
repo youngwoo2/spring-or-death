@@ -21,6 +21,12 @@ logging:
     root: info
     com.sh: debug
 
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.sh
+  mapper-locations: classpath*:mappers/**/*-mapper.xml
+
 server:
   servlet:
     context-path: /app
