@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sh.spring_or_death.regist.model.dao.RegistMapper">
+<<<<<<< HEAD
     <select id="checkEmail" resultType="MemberDto">
         select
             *
@@ -11,4 +12,13 @@
         where
             member_email = #{memberEmail}
     </select>
+=======
+    <insert id="submit" useGeneratedKeys="true" keyProperty="memberId">
+        insert into
+            member (member_email, member_password, member_name, registration_date)
+        values (
+            #{memberEmail}, #{memberPassword}, #{memberName}, now()
+        )
+    </insert>
+>>>>>>> b56f0c62252871e5ef270b84053d1ed55e609049
 </mapper>

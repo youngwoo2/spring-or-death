@@ -63,11 +63,16 @@
 
     <main class="container">
         <h2>회원가입폼</h2>
-        <form>
+        <!-- 플래시 메시지를 표시할 부분 추가 -->
+        <div th:if="${message}" class="alert alert-success" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+
+        <form action="" method="post">
             <div class="form-group">
                 <label for="email">이메일</label>
                 <div class="input-group">
-                    <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요">
+                    <input type="email" class="form-control" id="email" name="memberEmail" placeholder="이메일을 입력하세요">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="checkEmailBtn">중복 체크</button>
                     </div>
@@ -75,7 +80,7 @@
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요">
+                <input type="password" class="form-control" id="password" name="memberPassword" placeholder="비밀번호를 입력하세요">
             </div>
             <div class="form-group">
                 <label for="confirmPassword">비밀번호 확인</label>
@@ -84,7 +89,7 @@
             </div>
             <div class="form-group">
                 <label for="name">이름</label>
-                <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요">
+                <input type="text" class="form-control" id="name" name="memberName" placeholder="이름을 입력하세요">
             </div>
 
             <button type="submit" class="btn btn-primary">제출</button>
@@ -123,6 +128,9 @@
 
     </script>
 
+    <script>
+
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
