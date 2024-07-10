@@ -68,31 +68,31 @@
             <span th:text="${message}"></span>
         </div>
 
-        <form action="" method="post">
+        <form id="registForm" action="" method="post">
             <div class="form-group">
                 <label for="email">이메일</label>
                 <div class="input-group">
-                    <input type="email" class="form-control" id="email" name="memberEmail" placeholder="이메일을 입력하세요">
+                    <input type="email" class="form-control" id="email" name="memberEmail" placeholder="이메일을 입력하세요" required>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="checkEmailBtn">중복 체크</button>
+                        <button class="btn btn-outline-secondary" type="button" id="checkEmailBtn" data-status="unchecked">중복 체크</button>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" class="form-control" id="password" name="memberPassword" placeholder="비밀번호를 입력하세요">
+                <input type="password" class="form-control" id="password" name="memberPassword" placeholder="비밀번호를 입력하세요" required>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">비밀번호 확인</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요">
-                <small id="passwordHelp" class="form-text text-muted"></small>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required>
+                <p id="passwordMatch"></p>
             </div>
             <div class="form-group">
                 <label for="name">이름</label>
-                <input type="text" class="form-control" id="name" name="memberName" placeholder="이름을 입력하세요">
+                <input type="text" class="form-control" id="name" name="memberName" placeholder="이름을 입력하세요" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">제출</button>
+            <button type="button" id="submitBtn" class="btn btn-primary">제출</button>
         </form>
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -108,9 +108,11 @@
                     email : email
                 },
                 success : function (responseText) {
+                    const btn = document.querySelector("#checkEmailBtn")
                     // responseText가 success이면 중복 아님
                     if (responseText === 'success') {
                         alert('사용가능한 이메일입니다.');
+                        btn.dataset.status = "checked"
                     } else {
                         // responseText가 fail이면 중복
                         alert('이미 사용중인 이메일입니다.');
@@ -123,14 +125,42 @@
         };
 
         <!-- 비밀번호 일치 체크 -->
-        const password1 = document.querySelector("#password");
-        const password2 = document.querySelector("#confirmPassword");
+        const p1 = document.querySelector("#password");
+        const p2 = document.querySelector("#confirmPassword");
+        const resultText = document.querySelector("#passwordMatch");
+        p2.addEventListener('input', () => {
+            const password = p1.value
+            const confirmPassword = p2.value
+
+            if (password === confirmPassword) {
+                resultText.textContent = "비밀번호가 일치합니다";
+                resultText.style.color = "green";
+            } else {
+                resultText.textContent = "비밀번호가 일치하지 않습니다...";
+                resultText.style.color = "red";
+            }
+        });
+
+        <!-- 제출 버튼 클릭 시 이벤트 처리 -->
+        document.querySelector("#submitBtn").onclick = () => {
+            const btn = document.querySelector("#checkEmailBtn");
+            const p1 = document.querySelector("#password").value;
+            const p2 = document.querySelector("#confirmPassword").value;
+            if (btn.dataset.status === "unchecked") {
+                alert("이메일 중복확인이 필요합니다...")
+                return;
+            } else if (p1 !== p2) {
+                alert("비밀번호가 일치하지 않습니다...");
+                return;
+            } else {
+                document.querySelector("#registForm").submit();
+                alert("회원가입이 성공적으로 완료되었습니다!! 🎉🎉🎉")
+            }
+
+        };
 
     </script>
 
-    <script>
-
-    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

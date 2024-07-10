@@ -1,10 +1,7 @@
 package com.sh.spring_or_death.regist.controller;
 
 import com.sh.spring_or_death.regist.model.dto.MemberDto;
-<<<<<<< HEAD
-=======
 import com.sh.spring_or_death.regist.model.dto.MemberRegistDto;
->>>>>>> b56f0c62252871e5ef270b84053d1ed55e609049
 import com.sh.spring_or_death.regist.model.service.RegistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
-@RequiredArgsConstructor
 @RequestMapping("/regist")
 @RequiredArgsConstructor
 public class RegistController {
