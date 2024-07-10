@@ -1,5 +1,8 @@
 package com.sh.spring_or_death.regist.controller;
 
+import com.sh.spring_or_death.regist.model.dto.MemberDto;
+import com.sh.spring_or_death.regist.model.service.RegistService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/regist")
 public class RegistController {
+    private final RegistService registService;
 
     @GetMapping("/regist")
     public void showRegistForm() {
@@ -18,9 +23,15 @@ public class RegistController {
 
     @GetMapping("/checkEmail")
     @ResponseBody
-    public String checkEmail(@RequestParam String memberEmail) {
+    public String checkEmail(@RequestParam("email") String memberEmail) {
         log.debug("memberEmail = {}", memberEmail);
-        return "";
+        MemberDto memberDto = registService.checkEmail(memberEmail);
+        if (memberDto == null) {
+            return "success";
+        } else {
+            return "fail";
+        }
+
     }
 
 }
